@@ -1,0 +1,25 @@
+MAIN
+Rodar função main
+	Para gerar as matrizes W.
+		Chamar função  CriaW().
+		Serão geradas matrizes para todos dígitos com p={5, 10, 15}.
+	
+	Para testar as matrizes com as imagens do mnist.
+	Chamar função TestaW().
+	Serão feitos testes com p={5, 10, 15} respectivamente.
+	Caso nao queria criar W, as matrizes W já são fornecidas. E o teste pode ser feito.
+		Ao rodar CriaW, as matrizes são sobrescritas.
+
+	CSV são gerados com informações. Mais detalhes no relatório.
+
+Tarefa 1
+Para executar as tarefas 1 A, B, C e D, rode os seguintes arquivos anexados junto ao arquivo principal:
+	Tarefa1A.py
+	Tarefa1B.py
+	Tarefa1C.py
+	Tarefa1D.py
+		Não é necessário editar nenhuma parte do código! Basta apenas executá-los.
+
+Tarefa 2
+	Basta executá-la, chamando as funções de acordo com a explicação detalhada no relatório.
+
