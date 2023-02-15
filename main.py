@@ -1,40 +1,43 @@
 import Tarefa2 as t2
 import numpy as np
+import pdb
 import time
+import matplotlib.pyplot as plt
 import Parte3 as p3
 
-def CriaW(lista):
-	tempo=[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
-	for ndig in lista:
-		for dig in range(10):
-			for p in [5,10,15]:
-				t=time.time()
-				A = np.loadtxt("dados_mnist/train_dig" + str(dig) + ".txt")
-				A = A/255
-				Wd=t2.fatoracaoWH(A,p)
-				np.save("W" + str(dig) + "p" + str(p), Wd)
+tempo=[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+graficos=[]
+for dig in range(10):
+	for p in [5,10,15]:
+		#pdb.set_trace()
+		t=time.time()
+		#Wd,grafico=t2.fatoracaoWH(np.load("dados_mnist/A%d.npy" %dig),p)
+		A = np.loadtxt("dados_mnist/train_dig" + str(dig) + ".txt")
+		A = A/255
+		Wd,grafico=t2.fatoracaoWH(A,p)
+		np.save("W" + str(dig) + "p" + str(p), Wd)
 
-				print("W" + str(dig) + "p" + str(p)) #controle do console
-				print(time.time()-t)
-
-
-				tempo[[5,10,15].index(p)][dig]=time.time()-t #dados para análise
+		print("W" + str(dig) + "p" + str(p)) #controle do console
+		print(time.time()-t)
 
 
-		np.savetxt("tempoCria.csv",np.array(tempo), delimiter=",") #salva matriz de tempo
+		#tempo[[5,10,15].index(p)][dig]=time.time()-t #dados para análise
+		plt.plot(grafico[0], grafico[1])
+		#graficos.append(grafico) #gera todos os graficos
 
-def TestaW():
-	tempos=[]
-	for p in [5,10,15]:       #Análise de acertos
-		print("Resultados para p = " + str(p) + " são: ")
-		tempo = time.time()
-		A = np.loadtxt("dados_mnist/test_images.txt")
-		b = np.loadtxt("dados_mnist/test_index.txt")
-		Digitos, Frequencia = p3.Calcular_acertos(A, b, p)
-		for j in range(10):
-			tempos.append(Frequencia[j][3])
-			print("A frequencia de acertos para o dígito "+str(j)+" é:",Frequencia[j][3],"%")
-		print("Tempo da parte 3: ", time.time() - tempo)
-		tempos.append(time.time() - tempo)
-		tempos.append(0)
-	np.savetxt("tempoTesta".csv",np.array(tempos), delimiter=",") #salva matriz de tempo
+np.save(np.array(tempo),"tempo") #salva matriz de tempo
+#np.save(np.array(graficos),"graficos") #salva graficos
+
+plt.xlabel('Iteracao')
+plt.ylabel('Erro Quadratico')
+plt.savefig("Wdig")  #salva grafico de todos digitos e iteracoes
+  
+for p in [5,10,15]:       #Análise de acertos
+	print("Resultados para p = " + str(p) + " são: ")
+	#tempo = time.time()
+	A = np.loadtxt("dados_mnist/test_images.txt")
+	b = np.loadtxt("dados_mnist/test_index.txt")
+	Digitos, Frequencia = p3.Calcular_acertos(A, b, p)
+	for j in range(10):
+		print("A frequencia de acertos para o dígito "+str(j)+" é:",Frequencia[j][3],"%")
+	#print("Tempo da parte 3: ", time.time() - tempo)

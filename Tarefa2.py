@@ -2,6 +2,8 @@ import numpy as np
 import math
 import ResolveSimult as sm
 import copy
+import pdb
+import time
 
 def fatoracaoWH(A,p):
 	n=len(A)
@@ -12,6 +14,7 @@ def fatoracaoWH(A,p):
 	contador=0
 	erro2=-1
 	A=np.array(A)
+	grafico=[[],[]]
 
 	W=np.random.randint(100, size=(n,p))/10 # criando matriz de entradas (floats) positivas aleatórias
 	#W = np.array([[0.6, 0], [0, 1], [0.8, 0]])
@@ -24,6 +27,7 @@ def fatoracaoWH(A,p):
 		for j in range(p): #normaliza cada coluna
 			W=normaColuna(W,j)
 
+		#pdb.set_trace()
 		
 		H=sm.Resolver_simult(m,n, p, W, copy.deepcopy(A))
 		#print("tempo para resolver o 1o MMQ", tempo - time.time())
@@ -51,9 +55,11 @@ def fatoracaoWH(A,p):
 
 
 		erro1=diferenca2(copy.deepcopy(A),W,H) #novo erro para entrar no proximo loop
+		grafico[0].append(contador+1)
+		grafico[1].append(erro1)
 		contador+=1
 
-	return(W) #retorno W e H depois de iterar
+	return(W,grafico) #retorno W e H depois de iterar
 
 
 def diferenca(A,W,H):  #calcula a diferenca quadratica entre A-W*H

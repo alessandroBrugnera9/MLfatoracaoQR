@@ -1,5 +1,5 @@
 '''
-Entradas necessarias:  Inteiros: m,n e p.
+Entradas necessárias:  Inteiros: m,n e p. 
 					   Matrizes: W, A
 					   
 Saida do algoritmo:    Matriz H
@@ -17,13 +17,13 @@ def Resolver_simult (m, n, p, W, A):
     m = len(A[0])
     p = len(W[0])
 	 
-    def Rotgivens(W,n,m,i,j,c,s):     #Cï¿½digo do RotGivens fornecido pelo IME
+    def Rotgivens(W,n,m,i,j,c,s):     #Código do RotGivens fornecido pelo IME
         W[i,0:m] , W[j,0:m] = c * W[i,0:m] - s * W[j,0:m] , s * W[i,0:m] + c * W[j,0:m]
         return W
 	
     
-    def Triangularizar (W, A):       #Aplicar RotGivens atï¿½ que W fique traiangular
-        W_tmp = copy.deepcopy(W)     #E aplica RotGivens em A tambï¿½m
+    def Triangularizar (W, A):       #Aplicar RotGivens até que W fique traiangular
+        W_tmp = copy.deepcopy(W)     #E aplica RotGivens em A também
         A_tmp = copy.deepcopy(A)
         for k in range(p):
             for j in range (n-1, 0, -1):
@@ -43,7 +43,7 @@ def Resolver_simult (m, n, p, W, A):
         A_tmp = copy.deepcopy(A) #...retorna a matriz H
         H_tmp = np.zeros((p,m))
         for k in range(p-1, -1, -1):
-               if R[k,k] != 0:   #impedir divisï¿½o por 0
+               if R[k,k] != 0:   #impedir divisão por 0
                    for j in range(m):
                        somatorio = 0
                        for u in range(k+1, p):
